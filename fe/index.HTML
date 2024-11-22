@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointment System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo.webp" alt="Doctor Logo" class="doctor-logo">
+                <h1>Dr. John Smith</h1>
+            </div>
+            <div class="navbar-links">
+                <button onclick="scrollToSection('home')">Home</button>
+                <button onclick="scrollToSection('about')">About</button>
+                <button onclick="scrollToSection('appointment')">Book Appointment</button>
+                <button onclick="scrollToSection('contact')">Contact Us</button>
+            </div>
+            <div class="theme-switcher" id="themeSwitcher">🌙</div>
+        </nav>
+    </header>
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="section">
+        <h2>Book Your Appointment</h2>
+        <form id="appointmentForm" class="appointment-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="number" id="age" placeholder="Your Age" required>
+            <select id="gender" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <input type="tel" id="mobile" placeholder="Your Mobile Number" required>
+
+            <!-- Date Picker - Added and Made Larger -->
+            <input type="date" id="appointmentDate" required style="font-size: 18px; padding: 10px; width: 100%;">
+
+            <button type="submit" class="btn primary-btn">Book Appointment</button>
+        </form>
+    </section>
+
+    <!-- Confirmation Popup -->
+    <div id="popup" class="popup" style="display: none;">
+        <div id="popupMessage"></div>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <!-- Appointments List -->
+    <section id="appointmentsList" class="section">
+        <h2>Your Appointments</h2>
+        <ul id="appointmentsListContent"></ul>
+        <p id="totalAppointments">Total Appointments: 0</p>
+    </section>
+
+    <!-- Update Appointment Form -->
+    <section id="updateAppointmentForm" class="section" style="display: none;">
+        <h2>Update Appointment</h2>
+        <form id="updateForm" class="appointment-form">
+            <input type="text" id="updateName" placeholder="Updated Name" required>
+            <input type="number" id="updateAge" placeholder="Updated Age" required>
+            <select id="updateGender" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <input type="tel" id="updateMobile" placeholder="Updated Mobile Number" required>
+            <button type="submit" class="btn primary-btn">Save Changes</button>
+            <button type="button" onclick="cancelUpdate()">Cancel</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Doctor Appointment System</p>
+    </footer>
+</body>
+</html>

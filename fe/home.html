@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctors Appointment</title>
+</head>
+<body>
+    <h1>Welcome to Doctors Appointment System</h1>
+    <h2>Available Doctors</h2>
+    <ul>
+        {% for doctor in doctors %}
+            <li>{{ doctor.name }} - {{ doctor.specialization }} - {{ doctor.availability }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Upcoming Appointments</h2>
+    <ul>
+        {% for appointment in appointments %}
+            <li>{{ appointment.patient_name }} - {{ appointment.doctor.name }} - {{ appointment.appointment_time }} - {{ appointment.status }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

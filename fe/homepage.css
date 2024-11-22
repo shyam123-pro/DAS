@@ -1,0 +1,127 @@
+body {  
+    font-family: Arial, sans-serif;  
+    background-color: #f0f0f0;  
+    margin: 0;  
+    padding: 0;  
+}  
+
+.navbar {  
+    display: flex;  
+    justify-content: center;  
+    background-color: #007bff;  
+    padding: 15px 10px;  
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);  
+}  
+
+.navbar button {  
+    background-color: #6b2940;  
+    color: white;  
+    border: none;  
+    border-radius: 5px;  
+    padding: 12px 20px;  
+    margin: 0 10px;  
+    font-size: 16px;  
+    cursor: pointer;  
+    transition: background-color 0.3s ease, transform 0.3s ease;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);  
+}  
+
+.navbar button:hover {  
+    background-color: #0056b3;  
+    transform: translateY(-2px);  
+}  
+
+.navbar button:active {  
+    background-color: #004494;  
+    transform: translateY(1px);  
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);  
+}  
+
+.container {  
+    text-align: center;  
+    max-width: 800px;  
+    margin: 20px auto;  
+    padding: 20px;  
+    background-color: white;  
+    border-radius: 8px;  
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
+    transition: transform 0.3s ease;  
+}  
+
+.container:hover {  
+    transform: scale(1.02);  
+}  
+
+header {  
+    margin-bottom: 20px;  
+}  
+
+h1 {  
+    color: #333;  
+    font-size: 2.5em;  
+    margin-bottom: 10px;  
+}  
+
+.options {  
+    display: flex;  
+    justify-content: space-around;  
+    flex-wrap: wrap;  
+    margin: 20px 0;  
+}  
+
+.option {  
+    background-color: #314f70;  
+    color: white;  
+    border-radius: 8px;  
+    padding: 20px;  
+    margin: 10px;  
+    flex-basis: 45%;  
+    cursor: pointer;  
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+}  
+
+.option:hover {  
+    background-color: #126ed1;  
+    transform: translateY(-5px);  
+    box-shadow: 0 4px 10px rgba(244, 52, 52, 0.2);  
+}  
+
+.option:active {  
+    background-color: #004494;  
+    transform: translateY(1px);  
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);  
+}  
+
+.option h2 {  
+    margin: 10px 0;  
+    font-size: 1.5em;  
+}  
+
+.option p {  
+    font-size: 1em;  
+}  
+
+section {  
+    margin: 20px 0;  
+    padding: 20px;  
+    background-color: #f9f9f9;  
+    border-radius: 8px;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
+    transition: background-color 0.3s ease;  
+}  
+
+section:hover {  
+    background-color: #e9ecef;  
+}  
+
+h2 {  
+    color: #007bff;  
+    font-size: 2em;  
+    margin-bottom: 10px;  
+}  
+
+p {  
+    color: #555;  
+    line-height: 1.6;  
+}  

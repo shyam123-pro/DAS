@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointment System</title>
+
+    <!-- Load Static Files in Django -->
+    {% load static %}
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Link to Static JS File -->
+    <!-- <script defer src="{% static 'js/script.js' %}"></script> -->
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <header>
+        <nav class="bg-blue-600 text-white shadow-lg">
+            <div class="container mx-auto flex items-center justify-between py-4 px-6">
+                <div class="flex items-center">
+                    <img src="{% static 'images/logo.webp' %}" alt="Doctor Logo" class="w-12 h-12 mr-4">
+                    <h1 class="text-xl font-semibold">Dr. John Smith</h1>
+                </div>
+                <div class="flex space-x-4">
+                    <button onclick="window.location.href='/'" class="py-2 px-4 hover:bg-blue-700 rounded">Home</button>
+                    <button onclick="scrollToSection('about')" class="py-2 px-4 hover:bg-blue-700 rounded">About</button>
+                    <button onclick="scrollToSection('appointment')" class="py-2 px-4 hover:bg-blue-700 rounded">Book Appointment</button>
+                    <button onclick="scrollToSection('contact')" class="py-2 px-4 hover:bg-blue-700 rounded">Contact Us</button>
+                </div>
+                <div class="text-xl cursor-pointer" id="themeSwitcher">🌙</div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="section py-12 bg-white shadow-sm">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-bold text-center mb-6">Book Your Appointment</h2>
+            <form id="appointmentForm" class="max-w-lg mx-auto space-y-4">
+                <input type="text" id="name" placeholder="Your Name" required class="w-full p-3 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <input type="number" id="age" placeholder="Your Age" required class="w-full p-3 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <select id="gender" required class="w-full p-3 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <input type="tel" id="mobile" placeholder="Your Mobile Number" required class="w-full p-3 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <input type="date" id="appointmentDate" required class="w-full p-3 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded shadow hover:bg-blue-700">Book Appointment</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Confirmation Popup -->
+    <div id="popup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
+        <div class="bg-white p-6 rounded shadow-lg text-center">
+            <div id="popupMessage" class="text-lg font-medium mb-4"></div>
+            <button onclick="closePopup()" class="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700">Close</button>
+        </div>
+    </div>
+
+    <!-- Appointments List -->
+    <section id="appointmentsList" class="section py-12">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-bold text-center mb-6">Your Appointments</h2>
+            <ul id="appointmentsListContent" class="space-y-4"></ul>
+            <p id="totalAppointments" class="text-center text-gray-600 mt-4">Total Appointments: 0</p>
+        </div>
+    </section>
+
+    <!-- Update Appointment Form -->
+    <section id="updateAppointmentForm" class="section py-12" style="display: none;">
+        <div class="container mx-auto">
+            <h2 class="text-2xl font-bold text-center mb-6">Update Appointment</h2>
+            <form id="updateForm" class="max-w-lg mx-auto space-y-4">
+                <input type="text" id="updateName" placeholder="Updated Name" required class="w-full p-3 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <input type="number" id="updateAge" placeholder="Updated Age" required class="w-full p-3 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <select id="updateGender" required class="w-full p-3 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <input type="tel" id="updateMobile" placeholder="Updated Mobile Number" required class="w-full p-3 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <div class="flex space-x-4">
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded shadow hover:bg-blue-700">Save Changes</button>
+                    <button type="button" onclick="cancelUpdate()" class="w-full bg-gray-300 text-gray-800 py-3 rounded shadow hover:bg-gray-400">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4 text-center">
+        <p>&copy; 2024 Doctor Appointment System</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const appointmentForm = document.getElementById('appointmentForm');
+        const popup = document.getElementById('popup');
+        const popupMessage = document.getElementById('popupMessage');
+
+        appointmentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Collect form data
+            const appointmentData = {
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                mobile: document.getElementById('mobile').value,
+                appointmentDate: document.getElementById('appointmentDate').value
+            };
+
+            try {
+                // Send POST request
+                const response = await fetch('http://localhost:8000/api/appointment/book', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify(appointmentData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    popupMessage.textContent = 'Appointment booked successfully!';
+                } else {
+                    popupMessage.textContent = Error: ${result.message};
+                }
+
+                popup.style.display = 'block';
+            } catch (error) {
+                console.error('Error:', error);
+                popupMessage.textContent = 'An error occurred while booking your appointment.';
+                popup.style.display = 'block';
+            }
+        });
+
+        function closePopup() {
+            popup.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
