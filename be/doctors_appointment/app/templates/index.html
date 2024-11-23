@@ -4,144 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Appointment System - Home</title>
+    <title>Doctor Appointment Backend</title>
 
-    <!-- Tailwind CSS CDN -->
+    <!-- TailwindCSS CDN Link -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom Animations */
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
 
-        .animate-slide-in {
-            animation: slideIn 1.5s ease;
+    <style>
+        /* Custom Styles */
+        .bg-gradient {
+            background: linear-gradient(to right, #667eea, #764ba2);
         }
     </style>
 </head>
 
-<body class="bg-gray-100 text-gray-800">
-    <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-purple-700 to-blue-700 p-4 rounded-b-lg shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#" class="flex items-center text-white font-bold text-lg">
-                <img src="images/logo.webp" alt="Logo" class="w-12 h-12 rounded-full mr-3">
-                Dr. John Smith
-            </a>
-            <ul class="hidden md:flex space-x-6 text-white">
-                <li><a href="#home-details" class="hover:text-pink-400">Home</a></li>
-                <li><a href="#about" class="hover:text-pink-400">About</a></li>
-                <li><a href="#doctor-profile" class="hover:text-pink-400">Dr. John Smith</a></li>
-                <li><a href="#contact" class="hover:text-pink-400">Contact</a></li>
-            </ul>
-            <button class="md:hidden text-white focus:outline-none" id="menu-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
-            </button>
-        </div>
-        <ul id="mobile-menu" class="hidden md:hidden space-y-4 mt-4 text-white text-center">
-            <li><a href="#home-details" class="block">Home</a></li>
-            <li><a href="#about" class="block">About</a></li>
-            <li><a href="#doctor-profile" class="block">Dr. John Smith</a></li>
-            <li><a href="#contact" class="block">Contact</a></li>
-        </ul>
-    </nav>
+<body class="font-sans antialiased bg-gray-50 text-gray-900">
 
-    <!-- Carousel -->
-    <div class="relative h-screen">
-        <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
-        <div class="absolute inset-0 flex flex-col items-center justify-center z-20 text-white">
-            <h1 class="text-4xl font-bold mb-4 animate-slide-in">Meet Dr. John Smith: Your Trusted Cardiologist</h1>
-            <div class="flex space-x-4">
-                <a href="/form" class="px-6 py-2 bg-pink-500 hover:bg-blue-700 text-white font-semibold rounded-lg transition transform hover:scale-105">
-                    Book an Appointment
-                </a>
-                <button id="doctor-login-btn" class="px-6 py-2 bg-blue-500 hover:bg-purple-700 text-white font-semibold rounded-lg transition transform hover:scale-105">
-                    Doctor Login
+    <!-- Main Content Section -->
+    <div class="min-h-screen bg-gradient flex flex-col items-center justify-center py-10">
+        <div class=" p-8 rounded-lg shadow-lg text-center max-w-lg w-full">
+            <h1 class="text-4xl font-bold text-white mb-4">
+                Doctor Appointment Backend
+            </h1>
+            <p class="text-xl text-white mb-6">
+                This is the backend of the Doctor Appointment app where appointments are managed and scheduled.
+            </p>
+
+            <!-- Button to Go to Frontend -->
+            <a href="http://localhost:3000" target="_blank">
+                <button class="bg-blue-500 text-white px-6 py-2 rounded-full text-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300">
+                    Go to Frontend
                 </button>
-            </div>
-        </div>
-        <div class="carousel relative w-full h-full overflow-hidden">
-            <div class="w-full h-full bg-cover bg-center" style="background-image: url('images/image2.png');"></div>
-        </div>
-    </div>
-
-    <!-- Login Modal -->
-    <div id="doctor-login-modal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white rounded-lg shadow-lg p-8 w-96">
-            <h2 class="text-2xl font-bold text-blue-700 mb-6">Doctor Login</h2>
-            <form id="doctor-login-form">
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-700 font-medium">Email</label>
-                    <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <div class="mb-4">
-                    <label for="password" class="block text-gray-700 font-medium">Password</label>
-                    <input type="password" id="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <button type="submit" class="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700">Login</button>
-                <button type="button" id="close-login-modal" class="w-full px-4 py-2 mt-4 bg-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-400">Cancel</button>
-            </form>
+            </a>
+            <a href="http://localhost:8000/admin" target="_blank">
+                <button class="bg-blue-500 text-white px-6 py-2 rounded-full text-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300">
+                    Go to Admin Panel
+                </button>
+            </a>
         </div>
     </div>
 
-    <script>
-        // Toggle mobile menu
-        document.getElementById("menu-btn").addEventListener("click", () => {
-            const menu = document.getElementById("mobile-menu");
-            menu.classList.toggle("hidden");
-        });
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white text-center py-4">
+        <p>&copy; 2024 Doctor Appointment App | All rights reserved.</p>
+    </footer>
 
-        // Show login modal
-        const loginBtn = document.getElementById("doctor-login-btn");
-        const loginModal = document.getElementById("doctor-login-modal");
-        const closeLoginModal = document.getElementById("close-login-modal");
-
-        loginBtn.addEventListener("click", () => {
-            loginModal.classList.remove("hidden");
-        });
-
-        closeLoginModal.addEventListener("click", () => {
-            loginModal.classList.add("hidden");
-        });
-
-        // Handle login form submission
-        document.getElementById("doctor-login-form").addEventListener("submit", async (event) => {
-            event.preventDefault();
-
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            try {
-                const response = await fetch('http://localhost:8000/dl', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password }),
-                });
-
-                const data = await response.json();
-                if (data.success) {
-                    alert(data.message);
-                    loginModal.classList.add("hidden");
-                } else {
-                    alert(data.message);
-                }
-            } catch (error) {
-                console.error("Error logging in:", error);
-                alert("An error occurred. Please try again.");
-            }
-        });
-    </script>
 </body>
 
 </html>

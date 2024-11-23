@@ -3,7 +3,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse  # Use JsonResponse for standard Django views
 import json  # To parse the request body
 from app.models import Appointment  # Import the Appointment model
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+import json
+from .models import Doctor
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -13,46 +17,52 @@ from .models import Doctor
 def home(req):
     return render(req, 'index.html')
 
-# Create your views here.
-def form(req):
-    return render(req, 'form.html')
-
-
 @csrf_exempt
 def doctor_login(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         try:
-            # Parse JSON data f
+            # Parse JSON data from the request
             data = json.loads(request.body)
-
-            # Get email and password from the request
             email = data.get('email')
             password = data.get('password')
 
-            # Validate email and password fields
-            if not email or not password:
-                return JsonResponse({"success": False, "message": "Email and password are required."}, status=400)
+            # Validate credentials
+            doctor = Doctor.objects.filter(email=email, password=password).first()
 
-            # Check if the doctor exists
-            try:
-                doctor = Doctor.objects.get(email=email)
-            except Doctor.DoesNotExist:
-                return JsonResponse({"success": False, "message": "Invalid email or password."}, status=401)
-
-            # Verify the password
-            if password==doctor.password:
-                return JsonResponse({"success": True, "message": "Login successful.", "doctor_name": doctor.name})
+            if doctor:
+                # Success response
+                return JsonResponse({
+                    "success": True,
+                    "message": "Login successful",
+                    "doctor": {
+                        "id": doctor.id,
+                        "name": doctor.name,
+                        "mobile": doctor.mobile,
+                        "speciality": doctor.speciality,
+                        "email": doctor.email
+                    }
+                }, status=200)
             else:
-                return JsonResponse({"success": False, "message": "Invalid email or password."}, status=401)
-        
-        except json.JSONDecodeError:
-            return JsonResponse({"success": False, "message": "Invalid JSON format."}, status=400)
+                # Invalid credentials response
+                return JsonResponse({
+                    "success": False,
+                    "message": "Invalid email or password"
+                }, status=401)
+        except Exception as e:
+            # Error handling
+            return JsonResponse({
+                "success": False,
+                "message": f"An error occurred: {str(e)}"
+            }, status=500)
     else:
-        return JsonResponse({"success": False, "message": "Only POST method is allowed."}, status=405)
-
+        # Method not allowed response
+        return JsonResponse({
+            "success": False,
+            "message": "Only POST method is allowed"
+        }, status=405)
 
 @csrf_exempt
-def book(req):
+def book_appointment(req):
     if req.method == 'POST':
         try:
             # Parse JSON data from the request body
