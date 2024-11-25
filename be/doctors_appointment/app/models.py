@@ -6,7 +6,8 @@ class Appointment(models.Model):
     age=models.IntegerField()
     gender=models.CharField(max_length=100)
     mobile=models.CharField(max_length=15)
-    date=models.DateField()
+    date=models.DateTimeField()
+    status=models.CharField(max_length=100,default="Pending")
 
     def __str__(self):
         return self.name

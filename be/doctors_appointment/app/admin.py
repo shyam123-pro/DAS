@@ -1,8 +1,13 @@
 from django.contrib import admin
-from app.models import Appointment,Doctor
+from app.models import Appointment, Doctor
 
+# Register the Appointment model (no custom admin needed)
 admin.site.register(Appointment)
-admin.site.register(Doctor)
+
+# Define a custom admin for the Doctor model
+class DoctorAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'speciality', 'email']
 
 
-# Register your models here.
+# Register the Doctor model with the custom admin class
+admin.site.register(Doctor, DoctorAdmin)

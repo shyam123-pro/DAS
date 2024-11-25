@@ -11,6 +11,7 @@ from .models import Doctor
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from app.serializers import AppointmentSerializer,DoctorSerializer
 from .models import Doctor
 
 # Create your views here.
@@ -99,3 +100,25 @@ def book_appointment(req):
             return JsonResponse({'error': 'An error occurred while booking the appointment.'}, status=500)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+
+
+def get_appointments(req):
+    if(req.method=="GET"):
+        appointments=Appointment.objects.all()
+        s_a=AppointmentSerializer(appointments,many=True)
+        print(appointments)
+        return JsonResponse({"success":s_a.data},status=200)
+    else:
+        return JsonResponse({"error":"Get Method required"},status=400)
+    
+
+def get_doctor(request, id):
+    if request.method == "GET":
+        try:
+            doctor = Doctor.objects.get(id=id)
+            serialized_doctor = DoctorSerializer(doctor)
+            return JsonResponse(serialized_doctor.data, safe=False)
+        except Doctor.DoesNotExist:
+            return JsonResponse({"error": "Doctor not found"}, status=404)
+    else:
+        return JsonResponse({"error": "Only GET method is allowed"}, status=405)

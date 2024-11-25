@@ -30,9 +30,9 @@ const DoctorLogin = () => {
 
       if (response.ok) {
         const data = await response.json();
-
+        console.log(data)
         // Store doctor details in localStorage
-        localStorage.setItem('doctor', JSON.stringify(data.doctor));
+        localStorage.setItem('doctor_id', data.doctor.id);
         setSuccessMessage('Login successful!');
         setError('');
         navigate('/doctor-dashboard');
